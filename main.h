@@ -10,10 +10,10 @@ class Airline{
 
     public:
         // constructors
-        Airline();
-        Airline(Airline& src);
-        Airline& operator=(Airline& rhs);
-        ~Airline(); 
+        Airline(std::string AirlineNameInput, std::vector<std::string> FlightListInput, int FlightNumberInput);
+        Airline(const Airline& src);
+        Airline& operator=(const Airline& rhs);
+        ~Airline() = delete; 
 
         // getter functions
         inline std::string getAirlineName() {return AirlineName;}
@@ -65,7 +65,7 @@ class Passenger{
 
     public:
         // constructors
-        Passenger();
+        Passenger(int PassengerIdInput, std::string FirstNameInput, std::string LastNameInput, int PhoneNumberInput, Flight*** PassengerSeatInput);
         Passenger(Passenger& src);
         Passenger& operator=(Passenger& rhs);
         ~Passenger();
