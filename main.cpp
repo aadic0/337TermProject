@@ -1,6 +1,9 @@
 #include <iostream>
+#include "main.h"
 #include "Airline.h"
-#include "Airline.cpp"
+#include "Flight.h"
+#include "Passenger.h"
+#include "seat.h"
 #include <vector>
 #include <fstream>
 #include <string>
@@ -54,38 +57,81 @@ while (!info.eof()) {
 
     }
 
-    int decision = menu();
-    switch (decision)
-    {
-    case 1:
-        /* code */
-        break;
 
-    case 2:
-        //
-        break;
 
-    case 3:
-        //
-        break;
+    vector<vector<string>> seatMap(numRow);
+    for (const string seatNumber1: seatNumbers){
 
-    case 4:
-        //
-        break;
+        char col = seatNumber1.back();
+        int row;
+        if (seatNumber1.substr(0).size() > 1){
+            row = stoi(seatNumber1.substr(0, seatNumber1.size() - 1));
+        }
 
-    case 5:
-        //
-        break;
-    
-    case 6:
-        //
-        break;
-    
-    default:
-        cout <<"You have entered in an invalid number, try again: " << endl;
-        decision = menu();
-        break;
+        else{
+            row = stoi(seatNumber1.substr(0)) - 1;
+        }
+
+        if (col >= 'A' && col < 'A' + numCol && row >= 0 && row < numRow){
+            seatMap[row][col - 'A'] = "X";
+        }
+
+
+
     }
+
+    for (int i = 0; i < numRow; ++i) {
+            for (int j = 0; j < numCol; ++j) {
+                cout << seatMap[i][j] << " ";
+            }
+            cout << endl;
+        }
+
+
+    // Flight flight(flightID, numRow, numCol, passengerIDs, seatMap);
+
+    int decision;
+    do
+    {
+        decision = menu();
+
+        switch (decision)
+        {
+        case 1:
+            // displayFlightSeatMap();
+            break;
+
+        case 2:
+            //
+            break;
+
+        case 3:
+            //
+            break;
+
+        case 4:
+            //
+            break;
+
+        case 5:
+            //
+            break;
+        
+        case 6:
+            decision = 0;
+            break;
+        
+        default:
+            cout <<"You have entered in an invalid number, try again: " << endl;
+            break;
+    }
+
+
+
+    } while (decision != 0);
+    
+    
+    
 
 }
 
@@ -108,3 +154,10 @@ int menu(){
     return decision;    
 
 }
+
+// void displayFlightSeatMap(){
+
+//     // int numofplus = cols + 1
+
+
+// }
