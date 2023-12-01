@@ -41,54 +41,39 @@ int main(){
     string seatNumber;
     string passengerID;
 
-while (!info.eof()) {
+    while (!info.eof()) {
 
-    getline(info, lastName);
-    getline(info, firstName);
-    getline(info, phoneNumber);
-    getline(info, seatNumber);
-    getline(info, passengerID);
+        getline(info, lastName);
+        getline(info, firstName);
+        getline(info, phoneNumber);
+        getline(info, seatNumber);
+        getline(info, passengerID);
 
-    lastNames.push_back(lastName);
-    firstNames.push_back(firstName);
-    phoneNumbers.push_back(phoneNumber);
-    seatNumbers.push_back(seatNumber);
-    passengerIDs.push_back(passengerID);
+        lastNames.push_back(lastName);
+        firstNames.push_back(firstName);
+        phoneNumbers.push_back(phoneNumber);
+        seatNumbers.push_back(seatNumber);
+        passengerIDs.push_back(passengerID);
 
+        }
+
+    info.close();
+
+
+
+    vector<vector<string>> seatMap(numRow, vector<string>(numCol, " "));
+
+for (size_t i = 0; i < seatNumbers.size(); ++i) {
+    string seatNumber = seatNumbers[i];
+
+    char col = seatNumber.back();
+    int row = stoi(seatNumber.substr(0, seatNumber.size() - 1)) - 1;
+
+    if (col >= 'A' && col < 'A' + numCol && row >= 0 && row < numRow) {
+        seatMap[row][col - 'A'] = "X";
     }
+}
 
-
-
-    vector<vector<string>> seatMap(numRow);
-    for (const string seatNumber1: seatNumbers){
-
-        char col = seatNumber1.back();
-        int row;
-        if (seatNumber1.substr(0).size() > 1){
-            row = stoi(seatNumber1.substr(0, seatNumber1.size() - 1));
-        }
-
-        else{
-            row = stoi(seatNumber1.substr(0)) - 1;
-        }
-
-        if (col >= 'A' && col < 'A' + numCol && row >= 0 && row < numRow){
-            seatMap[row][col - 'A'] = "X";
-        }
-
-
-
-    }
-
-    for (int i = 0; i < numRow; ++i) {
-            for (int j = 0; j < numCol; ++j) {
-                cout << seatMap[i][j] << " ";
-            }
-            cout << endl;
-        }
-
-
-    // Flight flight(flightID, numRow, numCol, passengerIDs, seatMap);
 
     int decision;
     do
@@ -98,11 +83,10 @@ while (!info.eof()) {
         switch (decision)
         {
         case 1:
-            // displayFlightSeatMap();
+            cout << "This works" << endl;
             break;
 
         case 2:
-            //
             break;
 
         case 3:
@@ -129,9 +113,6 @@ while (!info.eof()) {
 
 
     } while (decision != 0);
-    
-    
-    
 
 }
 
@@ -155,9 +136,3 @@ int menu(){
 
 }
 
-// void displayFlightSeatMap(){
-
-//     // int numofplus = cols + 1
-
-
-// }

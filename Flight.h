@@ -12,7 +12,7 @@ class Flight{
         Flight(std::string FlightIDInput, int RowsInput, int ColumnsInput, std::vector<std::string> PassengerListInput, std::vector<std::vector<std::string>> SeatMapInput);
         Flight(const Flight& src);
         Flight& operator=(const Flight& rhs);
-        ~Flight();
+        ~Flight() {delete this;}
 
         // getter functions
         inline std::string getFlightID() {return FlightID;}

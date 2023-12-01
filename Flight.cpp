@@ -37,6 +37,3 @@ Flight& Flight::operator=(const Flight& rhs){
 
 }
 
-Flight::~Flight(){
-}
-
