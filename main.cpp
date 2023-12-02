@@ -83,7 +83,7 @@ for (size_t i = 0; i < seatNumbers.size(); ++i) {
         switch (decision)
         {
         case 1:
-            displayFlightSeatMap(numRow, numCol);
+            displayFlightSeatMap(numRow, numCol, seatMap);
             break;
 
         case 2:
@@ -138,60 +138,64 @@ int menu(){
 
 #include <iostream>
 
-void displayFlightSeatMap(int numCols, int numRows) {
+void displayFlightSeatMap(int numCols, int numRows, vector<vector<string>> seatMap) {
     int temp;
     temp = numRows;
     numRows = numCols;
     numCols = temp;
 
-    std::cout << std::endl;
-    std::cout << " ";
+    cout << endl;
+    cout << " ";
 
-    // Print letters as seat labels
     for (int j = 0; j <= 4 * numCols; j++) {
         if (j % 4 == 2)
-            std::cout << char('A' + j / 4);
+            cout << char('A' + j / 4);
         else
-            std::cout << " ";
+            cout << " ";
     }
 
-    std::cout << std::endl;
+    cout << endl;
 
     for (int i = 0; i <= 2 * numRows; i++) {
         if (i % 2 != 0)
-            std::cout << 1 + i / 2;
+            cout << 1 + i / 2;
 
         for (int j = 0; j <= 2 * numCols; j++) {
             if (i % 2 == 0) {
                 if (j == 0)
-                    std::cout << " ";
+                    cout << " ";
                 if (j % 2 == 0)
-                    std::cout << " ";
+                    cout << " ";
                 else
-                    std::cout << "---";
+                    cout << "---";
             } else {
                 if (j % 2 == 0)
-                    std::cout << "|";
-                else
-                    std::cout << "   ";
+                    cout << "|";
+                else {
+                    if (seatMap[i/2][j/2] == "X")
+                        cout << " X ";
+                    else
+                        cout << "   ";
+                }
             }
         }
 
         if (i % 2 != 0)
-            std::cout << 1 + i / 2;
+            cout << 1 + i / 2;
 
-        std::cout << std::endl;
+        cout << endl;
     }
 
-    std::cout << " ";
+    cout << " ";
     for (int j = 0, i = 1; j <= 4 * numCols; j++) {
         if (j % 4 == 2)
-            std::cout << char('A' + j / 4);
+            cout << char('A' + j / 4);
         else
-            std::cout << " ";
+            cout << " ";
     }
 
-    std::cout << std::endl;
+    cout << endl;
 }
+
 
 
