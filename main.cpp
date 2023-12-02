@@ -83,7 +83,7 @@ for (size_t i = 0; i < seatNumbers.size(); ++i) {
         switch (decision)
         {
         case 1:
-            cout << "This works" << endl;
+            displayFlightSeatMap(numRow, numCol);
             break;
 
         case 2:
@@ -135,4 +135,63 @@ int menu(){
     return decision;    
 
 }
+
+#include <iostream>
+
+void displayFlightSeatMap(int numCols, int numRows) {
+    int temp;
+    temp = numRows;
+    numRows = numCols;
+    numCols = temp;
+
+    std::cout << std::endl;
+    std::cout << " ";
+
+    // Print letters as seat labels
+    for (int j = 0; j <= 4 * numCols; j++) {
+        if (j % 4 == 2)
+            std::cout << char('A' + j / 4);
+        else
+            std::cout << " ";
+    }
+
+    std::cout << std::endl;
+
+    for (int i = 0; i <= 2 * numRows; i++) {
+        if (i % 2 != 0)
+            std::cout << 1 + i / 2;
+
+        for (int j = 0; j <= 2 * numCols; j++) {
+            if (i % 2 == 0) {
+                if (j == 0)
+                    std::cout << " ";
+                if (j % 2 == 0)
+                    std::cout << " ";
+                else
+                    std::cout << "---";
+            } else {
+                if (j % 2 == 0)
+                    std::cout << "|";
+                else
+                    std::cout << "   ";
+            }
+        }
+
+        if (i % 2 != 0)
+            std::cout << 1 + i / 2;
+
+        std::cout << std::endl;
+    }
+
+    std::cout << " ";
+    for (int j = 0, i = 1; j <= 4 * numCols; j++) {
+        if (j % 4 == 2)
+            std::cout << char('A' + j / 4);
+        else
+            std::cout << " ";
+    }
+
+    std::cout << std::endl;
+}
+
 

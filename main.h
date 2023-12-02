@@ -6,8 +6,8 @@
 #include <string>
 
 int menu();
-void displayFlightSeatMap();
+void displayFlightSeatMap(int numCols, int numRows);
 
 
 
-#endif
+#endif                                                  
