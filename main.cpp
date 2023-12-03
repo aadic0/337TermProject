@@ -8,6 +8,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <iomanip>
 
 using namespace std;
 
@@ -63,16 +64,30 @@ int main(){
 
     vector<vector<string>> seatMap(numRow, vector<string>(numCol, " "));
 
-for (size_t i = 0; i < seatNumbers.size(); ++i) {
-    string seatNumber = seatNumbers[i];
+    for (size_t i = 0; i < seatNumbers.size(); ++i) {
+        string seatNumber = seatNumbers[i];
 
-    char col = seatNumber.back();
-    int row = stoi(seatNumber.substr(0, seatNumber.size() - 1)) - 1;
+        char col = seatNumber.back();
+        int row = stoi(seatNumber.substr(0, seatNumber.size() - 1)) - 1;
 
-    if (col >= 'A' && col < 'A' + numCol && row >= 0 && row < numRow) {
-        seatMap[row][col - 'A'] = "X";
+        if (col >= 'A' && col < 'A' + numCol && row >= 0 && row < numRow) {
+            seatMap[row][col - 'A'] = "X";
+        }
     }
-}
+
+    vector<string> temp = lastNames;
+    lastNames = firstNames;
+    firstNames = temp;
+
+    vector<string> rowNum, seatLetter;
+
+    for (int i = 0; i < seatNumbers.size(); i++){
+
+        rowNum.push_back(seatNumbers[i].substr(0, seatNumbers[i].size()-1));
+        seatLetter.push_back(seatNumbers[i].substr(seatNumbers[i].size() -1 , 1));
+
+    }
+
 
 
     int decision;
@@ -87,6 +102,7 @@ for (size_t i = 0; i < seatNumbers.size(); ++i) {
             break;
 
         case 2:
+            displayPassengerInformation(firstNames, lastNames, phoneNumbers, rowNum, seatLetter, passengerIDs);
             break;
 
         case 3:
@@ -195,6 +211,22 @@ void displayFlightSeatMap(int numCols, int numRows, vector<vector<string>> seatM
     }
 
     cout << endl;
+}
+
+void displayPassengerInformation(vector<string>firstName, vector<string>lastName, vector<string>phone, vector<string>row, vector<string>seat, vector<string>ID){
+    cout << endl;
+
+
+    // Print the header
+    cout << left << setw(16) << "First Name" << setw(16) << "Last Name" << setw(16) << "Phone" << setw(5) << "Row" << setw(5) << "Seat" << setw(10) << "ID" << endl;
+
+    // Print the data
+    for(int i = 0; i < firstName.size(); i++) {
+        cout << setw(16) << firstName[i] << setw(16) << lastName[i] << setw(16) << phone[i] << setw(5) << row[i] << setw(5) << seat[i] << setw(10) << ID[i] << endl;
+    }
+
+    cout << endl;
+
 }
 
 
