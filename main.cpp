@@ -93,9 +93,11 @@ int main(){
 
 
     int decision;
+    char inputBuffer;
     do
     {
         decision = menu();
+        string IDremove;
 
         switch (decision)
         {
@@ -114,7 +116,12 @@ int main(){
             break;
 
         case 4:
-            //
+            cout << "Please enter the id of the passenger that needs to be removed: " << endl;
+            cin >> IDremove;
+            inputBuffer = cin.get();
+
+            removePassenger(lastNames, firstNames, phoneNumbers, seatNumbers, passengerIDs, seatMap, rowNum, seatLetter, IDremove);
+
             break;
 
         case 5:
@@ -155,7 +162,6 @@ int menu(){
     return decision;    
 
 }
-
 
 void displayFlightSeatMap(int numCols, int numRows, vector<vector<string>> seatMap) {
     int temp;
@@ -292,3 +298,38 @@ void addPassenger(vector<string>& lastNames, vector<string>& firstNames, vector<
 
 }
 
+void removePassenger(vector<string>& lastNames, vector<string>& firstNames, vector<string>& phoneNumbers, vector<string>& seatNumbers, vector<string>& passengerIDs, vector<vector<string>>& seatMap, vector<string>& rowNum, vector<string>& columnLetter, const string& ID) {
+    // Find the index of the passenger with the given ID
+    int index = -1;
+    for (int i = 0; i < passengerIDs.size(); i++) {
+        if (passengerIDs[i] == ID) {
+            index = i;
+            break;
+        }
+    }
+
+    // If the passenger is not found, print an error message and return
+    if (index == -1) {
+        cout << "Passenger with ID " << ID << " not found." << endl;
+        return;
+    }
+
+    // Update the seat map
+    string seatNumber = seatNumbers[index];
+    char col = seatNumber.back();
+    int row = stoi(seatNumber.substr(0, seatNumber.size() - 1)) - 1;
+    if (col >= 'A' && col < 'A' + seatMap[0].size() && row >= 0 && row < seatMap.size()) {
+        seatMap[row][col - 'A'] = " ";
+    }
+
+    // Remove the passenger's details from the vectors
+    lastNames.erase(lastNames.begin() + index);
+    firstNames.erase(firstNames.begin() + index);
+    phoneNumbers.erase(phoneNumbers.begin() + index);
+    seatNumbers.erase(seatNumbers.begin() + index);
+    passengerIDs.erase(passengerIDs.begin() + index);
+    rowNum.erase(rowNum.begin() + index);
+    columnLetter.erase(columnLetter.begin() + index);
+
+    cout << "Successfully removed passenger with ID " << ID << "." << endl;
+}
