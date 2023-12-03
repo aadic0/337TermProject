@@ -1,5 +1,4 @@
 #include <iostream>
-#include "main.h"
 #include "Airline.h"
 #include "Flight.h"
 #include "Passenger.h"
@@ -9,6 +8,7 @@
 #include <string>
 #include <sstream>
 #include <iomanip>
+#include "main.h"
 
 using namespace std;
 
@@ -25,6 +25,7 @@ int main(){
     istringstream iss(flight_details);
     string flightID;
     int numRow, numCol;
+
 
     iss >> flightID >> numRow >> numCol;
 
@@ -90,6 +91,7 @@ int main(){
 
 
 
+
     int decision;
     do
     {
@@ -106,7 +108,9 @@ int main(){
             break;
 
         case 3:
-            //
+            addPassenger(lastNames, firstNames, phoneNumbers, seatNumbers, passengerIDs, seatMap, numCol, numRow, rowNum, seatLetter);
+            cout << endl;
+            cout << "Successfully added" << endl;
             break;
 
         case 4:
@@ -152,7 +156,6 @@ int menu(){
 
 }
 
-#include <iostream>
 
 void displayFlightSeatMap(int numCols, int numRows, vector<vector<string>> seatMap) {
     int temp;
@@ -218,16 +221,74 @@ void displayPassengerInformation(vector<string>firstName, vector<string>lastName
 
 
     // Print the header
-    cout << left << setw(16) << "First Name" << setw(16) << "Last Name" << setw(16) << "Phone" << setw(5) << "Row" << setw(5) << "Seat" << setw(10) << "ID" << endl;
+    cout << left << setw(16) << "First Name" << setw(16) << "Last Name" << setw(16) << "Phone" << setw(6) << "Row" << setw(6) << "Seat" << setw(11) << "ID" << endl;
 
     // Print the data
     for(int i = 0; i < firstName.size(); i++) {
-        cout << setw(16) << firstName[i] << setw(16) << lastName[i] << setw(16) << phone[i] << setw(5) << row[i] << setw(5) << seat[i] << setw(10) << ID[i] << endl;
+        cout << setw(16) << firstName[i] << setw(16) << lastName[i] << setw(16) << phone[i] << setw(6) << row[i] << setw(6) << seat[i] << setw(11) << ID[i] << endl;
     }
 
     cout << endl;
 
 }
 
+void addPassenger(vector<string>& lastNames, vector<string>& firstNames, vector<string>& phoneNumbers, vector<string>& seatNumbers, vector<string>& passengerIDs, vector<vector<string>>& seatMap, int numCol, int numRow, vector<string>& rowNum, vector<string>& columnLetter){
 
+    string firstName;
+    string lastName;
+    string phone;
+    string seat;
+    string ID;
+    char inputBuffer;
+
+    cout << endl;
+
+    cout << "What is the first name of the passenger you want to add:" <<  endl;
+    cin >> firstName;
+    inputBuffer = cin.get();
+
+    cout << "What is the last name of the passenger you want to add:" << endl;
+    cin >> lastName;
+    inputBuffer = cin.get();
+
+    cout << "What is the phone number of the passenger (XXX-XXX-XXXX, where X is a number):" << endl;
+    cin >> phone;
+    inputBuffer = cin.get();
+
+    cout << "What seat number are they registered for (XXY or XY, where X is a number, and Y is a capital letter): " << endl;
+    cin >> seat;
+    inputBuffer = cin.get();
+
+
+    cout << "What is their ID number (XXXXX where X is a number):" << endl;
+    cin >> ID;
+    inputBuffer = cin.get();
+    
+    
+
+    lastNames.push_back(lastName);
+    firstNames.push_back(firstName);
+    phoneNumbers.push_back(phone);
+    seatNumbers.push_back(seat);
+    passengerIDs.push_back(ID);
+
+    for (size_t i = 0; i < seatNumbers.size(); ++i) {
+        string seatNumber = seatNumbers[i];
+
+        char col = seatNumber.back();
+        int row = stoi(seatNumber.substr(0, seatNumber.size() - 1)) - 1;
+
+        if (col >= 'A' && col < 'A' + numCol && row >= 0 && row < numRow) {
+            seatMap[row][col - 'A'] = "X";
+        }
+    }
+
+    string row = seat.substr(0, seat.size()-1);
+    string column = seat.substr(seat.size()-1, 1);
+
+    rowNum.push_back(row);
+    columnLetter.push_back(column);
+
+
+}
 

@@ -1,17 +1,21 @@
 #include "Passenger.h"
 
+
 using namespace std;
 
 
-Passenger::Passenger(int PassengerIdInput, std::string FirstNameInput, std::string LastNameInput, int PhoneNumberInput, int RowP, int ColumnP, Flight& flight){
+Passenger::Passenger(int PassengerIdInput, std::string FirstNameInput, std::string LastNameInput, string PhoneNumberInput, int RowPInput, int ColumnPInput, Flight& flight){
 
     PassengerId = PassengerIdInput;
     FirstName = FirstNameInput;
     LastName = LastNameInput;
     PhoneNumber = PhoneNumberInput;
-    const string& SeatLoc = flight.getSeatMap()[RowP][ColumnP];
+    rowP = RowPInput;
+    columnP = ColumnPInput;
+    const string& SeatLoc = flight.getSeatMap()[RowPInput][ColumnPInput];
     PassengerSeat = new string(SeatLoc);
-    PassengerSeat = &flight.getSeatMap()[RowP][ColumnP];
+    PassengerSeat = &flight.getSeatMap()[RowPInput][ColumnPInput];
+
 
 }
 
