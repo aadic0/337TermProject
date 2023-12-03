@@ -125,7 +125,8 @@ int main(){
             break;
 
         case 5:
-            //
+            saveData("flight_info.txt", flightID, numRow, numCol, lastNames, firstNames, phoneNumbers, seatNumbers, passengerIDs);
+            cout << "Data saved successfully." << endl;
             break;
         
         case 6:
@@ -332,4 +333,21 @@ void removePassenger(vector<string>& lastNames, vector<string>& firstNames, vect
     columnLetter.erase(columnLetter.begin() + index);
 
     cout << "Successfully removed passenger with ID " << ID << "." << endl;
+}
+
+void saveData(const string& filename, const string& flightID, int numRow, int numCol, const vector<string>& lastNames, const vector<string>& firstNames, const vector<string>& phoneNumbers, const vector<string>& seatNumbers, const vector<string>& passengerIDs) {
+    
+    ofstream outFile(filename);
+
+    outFile << flightID << " " << numRow << " " << numCol << endl;
+
+    for (int i = 0; i < lastNames.size(); i++) {
+        outFile << firstNames[i] << endl;
+        outFile << lastNames[i] << endl;
+        outFile << phoneNumbers[i] << endl;
+        outFile << seatNumbers[i] << endl;
+        outFile << passengerIDs[i] << endl;
+    }
+
+    outFile.close();
 }

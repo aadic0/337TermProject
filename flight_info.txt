@@ -1,4 +1,4 @@
-WJ1045   20    5
+WJ1045 20 5
 Bill William
 Harris
 403-100-0000
